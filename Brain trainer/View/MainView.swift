@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class MainView: UIView {
     
@@ -15,7 +14,7 @@ class MainView: UIView {
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
 //        imageView.image = UIImage(named: "background")
-        imageView.backgroundColor = .purple
+        imageView.backgroundColor = .systemTeal
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -95,24 +94,24 @@ class MainView: UIView {
             settingButton.widthAnchor.constraint(equalToConstant: 30),
             
             highScoreButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -30),
-            highScoreButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            highScoreButton.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 10),
             highScoreButton.heightAnchor.constraint(equalToConstant: 100),
             highScoreButton.widthAnchor.constraint(equalToConstant: 100),
             
             mediumLevelButton.bottomAnchor.constraint(equalTo: highScoreButton.topAnchor, constant: -40),
+            mediumLevelButton.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: -25),
             mediumLevelButton.heightAnchor.constraint(equalToConstant: 100),
             mediumLevelButton.widthAnchor.constraint(equalToConstant: 100),
-            mediumLevelButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             
-            easyLevelButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -90),
+            easyLevelButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -70),
             easyLevelButton.heightAnchor.constraint(equalToConstant: 100),
             easyLevelButton.widthAnchor.constraint(equalToConstant: 100),
-            easyLevelButton.trailingAnchor.constraint(equalTo: highScoreButton.leadingAnchor, constant: -20),
+            easyLevelButton.trailingAnchor.constraint(equalTo: mediumLevelButton.leadingAnchor, constant: 5),
             
-            hurdLevelButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -90),
+            hurdLevelButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -120),
             hurdLevelButton.heightAnchor.constraint(equalToConstant: 100),
             hurdLevelButton.widthAnchor.constraint(equalToConstant: 100),
-            hurdLevelButton.leadingAnchor.constraint(equalTo: highScoreButton.trailingAnchor, constant: 20),
+            hurdLevelButton.leadingAnchor.constraint(equalTo: highScoreButton.trailingAnchor, constant: 1),
         ])
     }
     
@@ -122,21 +121,6 @@ class MainView: UIView {
         [backgroundImageView, highScoreButton, mediumLevelButton, easyLevelButton, hurdLevelButton, settingButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview($0)
-        }
-    }
-}
-
-struct MyProvider: PreviewProvider {
-    static var previews: some View {
-        ContainerView().edgesIgnoringSafeArea(.all)
-    }
-    
-    struct ContainerView: UIViewControllerRepresentable {
-        func makeUIViewController(context: Context) -> some MainVC {
-            return MainVC()
-        }
-        
-        func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
         }
     }
 }
