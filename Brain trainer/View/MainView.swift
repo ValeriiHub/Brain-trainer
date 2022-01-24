@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class MainView: UIView {
     
@@ -13,7 +14,8 @@ class MainView: UIView {
     
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "background")
+//        imageView.image = UIImage(named: "background")
+        imageView.backgroundColor = .purple
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -21,27 +23,44 @@ class MainView: UIView {
     let highScoreButton: UIButton = {
         let button = UIButton()
         button.setTitle("HIGH SCORE", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 28, weight: .bold)
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        button.titleLabel?.numberOfLines = 2
+        button.titleLabel?.textAlignment = .center
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .red
-        button.layer.cornerRadius = 10
+        button.setBackgroundImage(UIImage(named: "orangeButton"), for: .normal)
         return button
     }()
     
-    let startButton: UIButton = {
+    let easyLevelButton: UIButton = {
         let button = UIButton()
-        button.setTitle("START", for: .normal)
+        button.setTitle("Easy", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 28, weight: .bold)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .red
-        button.layer.cornerRadius = 10
+        button.setBackgroundImage(UIImage(named: "greenButton"), for: .normal)
+        return button
+    }()
+    
+    let mediumLevelButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Medium", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        button.setTitleColor(.white, for: .normal)
+        button.setBackgroundImage(UIImage(named: "blueButton"), for: .normal)
+        return button
+    }()
+    
+    let hurdLevelButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Hard", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 28, weight: .bold)
+        button.setTitleColor(.white, for: .normal)
+        button.setBackgroundImage(UIImage(named: "purpleButton"), for: .normal)
         return button
     }()
     
     let settingButton: UIButton = {
         let button = UIButton()
         button.setTitle("", for: .normal)
-        button.setTitleColor(.red, for: .normal)
         button.setImage(UIImage(named: "settingButton"), for: .normal)
         return button
     }()
@@ -70,29 +89,54 @@ class MainView: UIView {
             backgroundImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             backgroundImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
-            highScoreButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            highScoreButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            highScoreButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -40),
-            highScoreButton.heightAnchor.constraint(equalToConstant: 55),
-            
-            startButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
-            startButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
-            startButton.bottomAnchor.constraint(equalTo: highScoreButton.topAnchor, constant: -40),
-            startButton.heightAnchor.constraint(equalToConstant: 55),
-            
             settingButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             settingButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 20),
             settingButton.heightAnchor.constraint(equalToConstant: 30),
-            settingButton.widthAnchor.constraint(equalToConstant: 30)
+            settingButton.widthAnchor.constraint(equalToConstant: 30),
+            
+            highScoreButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -30),
+            highScoreButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            highScoreButton.heightAnchor.constraint(equalToConstant: 100),
+            highScoreButton.widthAnchor.constraint(equalToConstant: 100),
+            
+            mediumLevelButton.bottomAnchor.constraint(equalTo: highScoreButton.topAnchor, constant: -40),
+            mediumLevelButton.heightAnchor.constraint(equalToConstant: 100),
+            mediumLevelButton.widthAnchor.constraint(equalToConstant: 100),
+            mediumLevelButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            
+            easyLevelButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -90),
+            easyLevelButton.heightAnchor.constraint(equalToConstant: 100),
+            easyLevelButton.widthAnchor.constraint(equalToConstant: 100),
+            easyLevelButton.trailingAnchor.constraint(equalTo: highScoreButton.leadingAnchor, constant: -20),
+            
+            hurdLevelButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -90),
+            hurdLevelButton.heightAnchor.constraint(equalToConstant: 100),
+            hurdLevelButton.widthAnchor.constraint(equalToConstant: 100),
+            hurdLevelButton.leadingAnchor.constraint(equalTo: highScoreButton.trailingAnchor, constant: 20),
         ])
     }
     
     // MARK: - Helper Methods
     
     private func addSubviews() {
-        [backgroundImageView, highScoreButton, startButton, settingButton].forEach {
+        [backgroundImageView, highScoreButton, mediumLevelButton, easyLevelButton, hurdLevelButton, settingButton].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview($0)
+        }
+    }
+}
+
+struct MyProvider: PreviewProvider {
+    static var previews: some View {
+        ContainerView().edgesIgnoringSafeArea(.all)
+    }
+    
+    struct ContainerView: UIViewControllerRepresentable {
+        func makeUIViewController(context: Context) -> some MainVC {
+            return MainVC()
+        }
+        
+        func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
         }
     }
 }

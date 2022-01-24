@@ -25,7 +25,7 @@ class MainVC: UIViewController {
     }
     
     private func configureButtons() {
-        mainView.startButton.addTarget(self, action: #selector(startButtonPressed), for: .touchUpInside)
+        mainView.easyLevelButton.addTarget(self, action: #selector(startButtonPressed), for: .touchUpInside)
         mainView.highScoreButton.addTarget(self, action: #selector(highScoreButtonPressed), for: .touchUpInside)
         mainView.settingButton.addTarget(self, action: #selector(settingButtonPressed), for: .touchUpInside)
     }
@@ -41,7 +41,7 @@ class MainVC: UIViewController {
     }
     
     @objc func highScoreButtonPressed() {
-        segueTo(HighScoreVC(), withStyle: .fullScreen)
+        segueTo(BestTimeVC(), withStyle: .overFullScreen)
     }
     
     @objc func settingButtonPressed() {
