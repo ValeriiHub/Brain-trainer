@@ -18,7 +18,7 @@ class MainView: UIView {
         return imageView
     }()
     
-    private let highScoreButton: UIButton = {
+    let highScoreButton: UIButton = {
         let button = UIButton()
         button.setTitle("HIGH SCORE", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 28, weight: .bold)
@@ -28,7 +28,7 @@ class MainView: UIView {
         return button
     }()
     
-    private let startButton: UIButton = {
+    let startButton: UIButton = {
         let button = UIButton()
         button.setTitle("START", for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 28, weight: .bold)
@@ -38,7 +38,7 @@ class MainView: UIView {
         return button
     }()
     
-    private let settingButton: UIButton = {
+    let settingButton: UIButton = {
         let button = UIButton()
         button.setTitle("", for: .normal)
         button.setTitleColor(.red, for: .normal)
