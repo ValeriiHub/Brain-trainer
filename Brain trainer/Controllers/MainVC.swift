@@ -12,6 +12,7 @@ class MainVC: UIViewController {
     //MARK: - Properties
     
     let mainView = MainView()
+    let settingsView = SettingsView()
     
     //MARK: - Life cycle
     
@@ -30,6 +31,7 @@ class MainVC: UIViewController {
         mainView.hurdLevelButton.addTarget(self, action: #selector(hurdLevelButtonPressed), for: .touchUpInside)
         mainView.highScoreButton.addTarget(self, action: #selector(highScoreButtonPressed), for: .touchUpInside)
         mainView.settingButton.addTarget(self, action: #selector(settingButtonPressed), for: .touchUpInside)
+        settingsView.closeButton.addTarget(self, action: #selector(closeButtonPressed), for: .touchUpInside)
     }
     
     private func segueToGameWith(cardsInRow: Double, countOfCardPairs: Int, seconds: Int, countOfTimers: Int) {
@@ -61,10 +63,11 @@ class MainVC: UIViewController {
     }
     
     @objc func settingButtonPressed() {
-        let popOver = SettingsVC()
-        self.addChild(popOver)
-        popOver.view.frame = self.view.frame
-        self.view.addSubview(popOver.view)
-        popOver.didMove(toParent: self)
+        mainView.setCustom(settingsView)
+        mainView.showAnimate(settingsView)
+    }
+    
+    @objc func closeButtonPressed() {
+        mainView.removeAnimate(settingsView)
     }
 }

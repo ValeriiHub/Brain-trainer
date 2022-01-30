@@ -13,6 +13,7 @@ class GameVC: UIViewController {
     
     let gameView = GameView()
     let endLevelView = EndLevelView()
+    let settingsView = SettingsView()
     let soundManager = SoundManager.shared
     
     var cardArray: [Card] = []
@@ -45,7 +46,9 @@ class GameVC: UIViewController {
     
     private func configureButtons() {
         gameView.closelButton.addTarget(self, action: #selector(closelButtonPressed), for: .touchUpInside)
+        gameView.pauseButton.addTarget(self, action: #selector(pauseButtonPressed), for: .touchUpInside)
         endLevelView.closeButton.addTarget(self, action: #selector(closelButtonPressed), for: .touchUpInside)
+        settingsView.closeButton.addTarget(self, action: #selector(SettingsCloselButtonPressed), for: .touchUpInside)
     }
     
     func checkForMatches(_ secondFlippedCardIndex: IndexPath) {
@@ -134,6 +137,19 @@ class GameVC: UIViewController {
     @objc func closelButtonPressed() {
         dismiss(animated: true)
     }
+    
+    @objc func pauseButtonPressed() {
+        timer?.invalidate()
+        
+        gameView.setCustom(settingsView)
+        gameView.showAnimate(settingsView)
+    }
+    
+    @objc func SettingsCloselButtonPressed() {
+        gameView.removeAnimate(settingsView)
+        startTimer()
+    }
+    
 }
 
 //MARK: - Extensions

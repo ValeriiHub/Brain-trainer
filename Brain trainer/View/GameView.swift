@@ -128,4 +128,16 @@ class GameView: UIView {
             view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         }
     }
+    
+    
+    func removeAnimate(_ view: UIView) {
+        UIView.animate(withDuration: 0.25) {
+            view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            view.alpha = 0.0
+        } completion: { finished in
+            if finished {
+                view.removeFromSuperview()
+            }
+        }
+    }
 }
