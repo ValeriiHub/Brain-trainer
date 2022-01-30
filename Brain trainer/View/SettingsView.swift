@@ -54,8 +54,8 @@ class SettingsView: UIView {
     let musicSlider: UISlider = {
         let slider = UISlider()
         slider.value = 0.5
-        slider.minimumTrackTintColor = .red
-        slider.thumbTintColor = .red
+        slider.minimumTrackTintColor = .blue
+        slider.thumbTintColor = .blue
         slider.minimumValueImage = UIImage(systemName: "volume.1")
         slider.maximumValueImage = UIImage(systemName: "volume.3")
         slider.tintColor = .red
@@ -79,8 +79,8 @@ class SettingsView: UIView {
     let soundSlider: UISlider = {
         let slider = UISlider()
         slider.value = 0.5
-        slider.minimumTrackTintColor = .red
-        slider.thumbTintColor = .red
+        slider.minimumTrackTintColor = .blue
+        slider.thumbTintColor = .blue
         slider.minimumValueImage = UIImage(systemName: "volume.1")
         slider.maximumValueImage = UIImage(systemName: "volume.3")
         slider.tintColor = .red

@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "backGround6.jpg",
+      "filename" : "cloudV.pdf",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "cloudV-1.pdf",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "cloudV-2.pdf",
       "idiom" : "universal",
       "scale" : "3x"
     }
