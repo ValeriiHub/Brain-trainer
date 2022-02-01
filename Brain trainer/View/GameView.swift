@@ -13,7 +13,7 @@ class GameView: UIView {
     
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "background")
+        imageView.image = UIImage(named: "gameBack")
         imageView.contentMode = .scaleToFill
         return imageView
     }()
@@ -106,38 +106,6 @@ class GameView: UIView {
         [backgroundImageView, closelButton, pauseButton, timerLabel, gameCollectionView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview($0)
-        }
-    }
-    
-    func setCustom(_ view: UIView) {
-        addSubview(view)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            view.heightAnchor.constraint(equalTo: self.heightAnchor),
-            view.widthAnchor.constraint(equalTo: self.widthAnchor),
-            view.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            view.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-        ])
-    }
-    
-    func showAnimate(_ view: UIView) {
-        view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-        view.alpha = 0.0
-        UIView.animate(withDuration: 0.25) {
-            view.alpha = 1.0
-            view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-        }
-    }
-    
-    
-    func removeAnimate(_ view: UIView) {
-        UIView.animate(withDuration: 0.25) {
-            view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-            view.alpha = 0.0
-        } completion: { finished in
-            if finished {
-                view.removeFromSuperview()
-            }
         }
     }
 }

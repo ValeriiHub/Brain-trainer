@@ -10,8 +10,7 @@ import UIKit
 class CardCVCell: UICollectionViewCell {
     
     //MARK: - Properties
-    var card: Card?
-    
+        
     let frontImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "Card1")
@@ -63,8 +62,6 @@ class CardCVCell: UICollectionViewCell {
     // MARK: - Helper Methods
     
     func setCard(_ card: Card) {
-        self.card = card
-        
         frontImageView.image = UIImage(named: card.imageName)
         backImageView.alpha = 1
         frontImageView.alpha = 1
@@ -99,3 +96,34 @@ class CardCVCell: UICollectionViewCell {
                        completion: nil)
     }
 }
+
+
+
+
+
+
+
+
+
+class MyView: UIView {
+    
+    private let titleLabel = UILabel()
+    private let messageLabel = UILabel()
+    
+    func render(model: Model) {
+        titleLabel.text = model.title
+        messageLabel.text = model.message
+    }
+
+}
+
+
+extension MyView {
+    
+    struct Model {
+        let title: String
+        let message: String
+    }
+}
+
+

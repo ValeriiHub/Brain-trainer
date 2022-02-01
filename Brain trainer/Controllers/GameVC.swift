@@ -17,10 +17,10 @@ class GameVC: UIViewController {
     let soundManager = SoundManager.shared
     
     var cardArray: [Card] = []
-    var cardsInRow = 4.0
+    var cardsInRow = Level.easy.cardsCount
     var countOfCardPairs = 8
     var countOfTimers = 0
-    var seconds = 60
+    var seconds = Level.easy.time
     var firstFlippedCardIndex: IndexPath?
     var timer: Timer?
     
@@ -37,7 +37,8 @@ class GameVC: UIViewController {
         
         configureButtons()
         
-        cardArray = CardModel.getCarts(pairs: countOfCardPairs, timer: countOfTimers)
+        cardArray = Card.getCarts(pairs: countOfCardPairs, timer: countOfTimers)
+        gameView.timerLabel.text = String(format:"%02i:%02i", seconds / 60 % 60, seconds % 60)
         
         startTimer()
     }
@@ -86,15 +87,39 @@ class GameVC: UIViewController {
         var isWon = true
         
         for card in cardArray {
-            if card.isMatched == false {
+            if !card.isMatched {
                 isWon = false
                 break
             }
         }
         
-        if isWon == true {
+        if isWon {
             if seconds > 0 {
                 timer?.invalidate()
+                
+                
+                switch cardsInRow {
+                case Level.easy.cardsCount:
+                    if BestScore.easyLevel == 0 {
+                        BestScore.easyLevel = (Level.easy.time - seconds)
+                    } else if BestScore.easyLevel > (Level.easy.time - seconds) {
+                        BestScore.easyLevel = (Level.easy.time - seconds)
+                    }
+                case Level.medium.cardsCount:
+                    if BestScore.mediumLevel == 0 {
+                        BestScore.mediumLevel = (Level.medium.time - seconds)
+                    } else if BestScore.mediumLevel > (Level.medium.time - seconds) {
+                        BestScore.mediumLevel = (Level.medium.time - seconds)
+                    }
+                case Level.hard.cardsCount:
+                    if BestScore.hardLevel == 0 {
+                        BestScore.hardLevel = (Level.hard.time - seconds)
+                    } else if BestScore.hardLevel > (Level.hard.time - seconds) {
+                        BestScore.hardLevel = (Level.hard.time - seconds)
+                    }
+                default:
+                    break
+                }
             }
             
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.4) {
@@ -110,9 +135,9 @@ class GameVC: UIViewController {
     }
     
     func showPopUp(text: String) {
-        endLevelView.settingsLabel.text = text
-        gameView.setCustom(endLevelView)
-        gameView.showAnimate(endLevelView)
+        endLevelView.winTimeLabel.text = text
+        setCustom(endLevelView)
+        showAnimate(endLevelView)
     }
     
     func startTimer() {
@@ -121,6 +146,38 @@ class GameVC: UIViewController {
                                      selector: #selector(timerElapsed),
                                      userInfo: nil,
                                      repeats: true)
+    }
+    
+    func setCustom(_ view: UIView) {
+        self.view.addSubview(view)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            view.heightAnchor.constraint(equalTo: self.view.heightAnchor),
+            view.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+            view.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            view.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        ])
+    }
+    
+    func showAnimate(_ view: UIView) {
+        view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        view.alpha = 0.0
+        UIView.animate(withDuration: 0.25) {
+            view.alpha = 1.0
+            view.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        }
+    }
+    
+    
+    func removeAnimate(_ view: UIView) {
+        UIView.animate(withDuration: 0.25) {
+            view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            view.alpha = 0.0
+        } completion: { finished in
+            if finished {
+                view.removeFromSuperview()
+            }
+        }
     }
     
     @objc func timerElapsed() {
@@ -141,15 +198,19 @@ class GameVC: UIViewController {
     @objc func pauseButtonPressed() {
         timer?.invalidate()
         
-        gameView.setCustom(settingsView)
-        gameView.showAnimate(settingsView)
+        setCustom(settingsView)
+        showAnimate(settingsView)
     }
     
     @objc func SettingsCloselButtonPressed() {
-        gameView.removeAnimate(settingsView)
+        removeAnimate(settingsView)
         startTimer()
     }
     
+    deinit {
+        timer?.invalidate()
+        timer = nil
+    }
 }
 
 //MARK: - Extensions
@@ -201,7 +262,7 @@ extension GameVC: UICollectionViewDelegateFlowLayout {
             cell.flip()
             card.isFlipped = true
             
-            if card.imageName == "timer" {
+            if card.imageName == K.cardImageNameTimer {
                 soundManager.playSound(.explosion)
                 configure(cell, and: card)
                 
@@ -209,14 +270,17 @@ extension GameVC: UICollectionViewDelegateFlowLayout {
                     timer?.invalidate()
                     seconds -= 20
                     
-                    gameView.timerLabel.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-                    gameView.timerLabel.text = "-20"
+//                    gameView.timerLabel.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+                    gameView.timerLabel.text = K.bombDeltaTimeText
+                    
                     UIView.animate(withDuration: 0.25) {
                         self.gameView.timerLabel.transform = CGAffineTransform(scaleX: 2.5, y: 2.5)
+                    } completion: { _ in
+                        UIView.animate(withDuration: 0.25) {
+                            self.gameView.timerLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                        }
                     }
-                    UIView.animate(withDuration: 0.5) {
-                        self.gameView.timerLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                    }
+                    
                     startTimer()
                     checkGameEnded()
                 } else {

@@ -36,13 +36,13 @@ class BestTimeView: UIView {
         return button
     }()
     
-    private let easyLeveImageView: UIImageView = {
+    private let easyLevelImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "greenLabel")
         return imageView
     }()
     
-    private let easyLeveLabel: UILabel = {
+    private let easyLevelLabel: UILabel = {
         let label = UILabel()
         label.text = "EASY LEVEL"
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
@@ -53,7 +53,7 @@ class BestTimeView: UIView {
     
     private let easyLeveScoreLabel: UILabel = {
         let label = UILabel()
-        label.text = "0"
+        label.text = "\(String(format:"%02i:%02i", BestScore.easyLevel / 60 % 60, BestScore.easyLevel % 60))"
         label.font = UIFont.systemFont(ofSize: 40, weight: .bold)
         label.textAlignment = .center
         label.textColor = .black
@@ -77,7 +77,7 @@ class BestTimeView: UIView {
     
     private let mediumLeveScoreLabel: UILabel = {
         let label = UILabel()
-        label.text = "0"
+        label.text = "\(String(format:"%02i:%02i", BestScore.mediumLevel / 60 % 60, BestScore.mediumLevel % 60))"
         label.font = UIFont.systemFont(ofSize: 40, weight: .bold)
         label.textAlignment = .center
         label.textColor = .black
@@ -101,7 +101,7 @@ class BestTimeView: UIView {
     
     private let hardLeveScoreLabel: UILabel = {
         let label = UILabel()
-        label.text = "0"
+        label.text = "\(String(format:"%02i:%02i", BestScore.hardLevel / 60 % 60, BestScore.hardLevel % 60))"
         label.font = UIFont.systemFont(ofSize: 40, weight: .bold)
         label.textAlignment = .center
         label.textColor = .black
@@ -143,22 +143,22 @@ class BestTimeView: UIView {
             closeButton.heightAnchor.constraint(equalToConstant: 30),
             closeButton.widthAnchor.constraint(equalToConstant: 30),
             
-            easyLeveImageView.topAnchor.constraint(equalTo: bestTimeLabel.bottomAnchor, constant: 50),
-            easyLeveImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            easyLeveImageView.widthAnchor.constraint(equalToConstant: 220),
-            easyLeveImageView.heightAnchor.constraint(equalToConstant: 100),
+            easyLevelImageView.topAnchor.constraint(equalTo: bestTimeLabel.bottomAnchor, constant: 50),
+            easyLevelImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            easyLevelImageView.widthAnchor.constraint(equalToConstant: 220),
+            easyLevelImageView.heightAnchor.constraint(equalToConstant: 100),
             
-            easyLeveLabel.topAnchor.constraint(equalTo: easyLeveImageView.topAnchor, constant: 10),
-            easyLeveLabel.leadingAnchor.constraint(equalTo: easyLeveImageView.leadingAnchor),
-            easyLeveLabel.trailingAnchor.constraint(equalTo: easyLeveImageView.trailingAnchor),
-            easyLeveLabel.heightAnchor.constraint(equalToConstant: 30),
+            easyLevelLabel.topAnchor.constraint(equalTo: easyLevelImageView.topAnchor, constant: 10),
+            easyLevelLabel.leadingAnchor.constraint(equalTo: easyLevelImageView.leadingAnchor),
+            easyLevelLabel.trailingAnchor.constraint(equalTo: easyLevelImageView.trailingAnchor),
+            easyLevelLabel.heightAnchor.constraint(equalToConstant: 30),
             
-            easyLeveScoreLabel.topAnchor.constraint(equalTo: easyLeveLabel.bottomAnchor, constant: 5),
-            easyLeveScoreLabel.leadingAnchor.constraint(equalTo: easyLeveImageView.leadingAnchor),
-            easyLeveScoreLabel.trailingAnchor.constraint(equalTo: easyLeveImageView.trailingAnchor),
+            easyLeveScoreLabel.topAnchor.constraint(equalTo: easyLevelLabel.bottomAnchor, constant: 5),
+            easyLeveScoreLabel.leadingAnchor.constraint(equalTo: easyLevelImageView.leadingAnchor),
+            easyLeveScoreLabel.trailingAnchor.constraint(equalTo: easyLevelImageView.trailingAnchor),
             easyLeveScoreLabel.heightAnchor.constraint(equalToConstant: 30),
             
-            mediumLeveImageView.topAnchor.constraint(equalTo: easyLeveImageView.bottomAnchor, constant: 50),
+            mediumLeveImageView.topAnchor.constraint(equalTo: easyLevelImageView.bottomAnchor, constant: 50),
             mediumLeveImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             mediumLeveImageView.widthAnchor.constraint(equalToConstant: 220),
             mediumLeveImageView.heightAnchor.constraint(equalToConstant: 100),
@@ -193,7 +193,7 @@ class BestTimeView: UIView {
     // MARK: - Helper Methods
     
     private func addSubviews() {
-        [backgroundView, bestTimeLabel, closeButton, easyLeveImageView, easyLeveLabel, easyLeveScoreLabel, mediumLeveImageView, mediumLeveLabel, mediumLeveScoreLabel, hurdLeveImageView, hurdLeveLabel, hardLeveScoreLabel].forEach {
+        [backgroundView, bestTimeLabel, closeButton, easyLevelImageView, easyLevelLabel, easyLeveScoreLabel, mediumLeveImageView, mediumLeveLabel, mediumLeveScoreLabel, hurdLeveImageView, hurdLeveLabel, hardLeveScoreLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview($0)
         }

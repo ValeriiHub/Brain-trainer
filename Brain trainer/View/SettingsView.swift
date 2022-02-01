@@ -37,8 +37,8 @@ class SettingsView: UIView {
         let button = UIButton()
         button.setTitle("Close", for: .normal)
         button.contentMode = .center
-        button.backgroundColor = .red
         button.layer.cornerRadius = 10
+        button.setBackgroundImage(UIImage(named: "VioletButton"), for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
         return button
     }()
@@ -54,17 +54,16 @@ class SettingsView: UIView {
     let musicSlider: UISlider = {
         let slider = UISlider()
         slider.value = 0.5
-        slider.minimumTrackTintColor = .blue
-        slider.thumbTintColor = .blue
+        slider.minimumTrackTintColor = UIColor(named: "PurpleSettingsColor")
         slider.minimumValueImage = UIImage(systemName: "volume.1")
         slider.maximumValueImage = UIImage(systemName: "volume.3")
-        slider.tintColor = .red
+        slider.tintColor = .black
         return slider
     }()
     
     let divisionLineView: UIView = {
         let view = UIView()
-        view.backgroundColor = .red
+        view.backgroundColor = .black
         return view
     }()
     
@@ -79,11 +78,10 @@ class SettingsView: UIView {
     let soundSlider: UISlider = {
         let slider = UISlider()
         slider.value = 0.5
-        slider.minimumTrackTintColor = .blue
-        slider.thumbTintColor = .blue
+        slider.minimumTrackTintColor = UIColor(named: "PurpleSettingsColor")
         slider.minimumValueImage = UIImage(systemName: "volume.1")
         slider.maximumValueImage = UIImage(systemName: "volume.3")
-        slider.tintColor = .red
+        slider.tintColor = .black
         return slider
     }()
     

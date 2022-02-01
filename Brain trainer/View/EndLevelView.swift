@@ -25,9 +25,9 @@ class EndLevelView: UIView {
         return view
     }()
     
-    let settingsLabel: UILabel = {
+    let winTimeLabel: UILabel = {
         let label = UILabel()
-        label.text = "You lose"
+        label.text = "00:00"
         label.font = .systemFont(ofSize: 22, weight: .bold)
         label.textAlignment = .center
         return label
@@ -42,8 +42,14 @@ class EndLevelView: UIView {
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
         return button
     }()
-
     
+    private let resultImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "win")
+        imageView.contentMode = .scaleToFill
+        return imageView
+    }()
+
     // MARK: - Inits
     
     override init(frame: CGRect) {
@@ -69,25 +75,31 @@ class EndLevelView: UIView {
             
             mainView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             mainView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            mainView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 18),
-            mainView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -18),
-            mainView.heightAnchor.constraint(equalToConstant: 380),
+            mainView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 40),
+            mainView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -40),
+            mainView.heightAnchor.constraint(equalToConstant: 300),
             
             closeButton.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -23),
             closeButton.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 23),
             closeButton.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -23),
             closeButton.heightAnchor.constraint(equalToConstant: 50),
             
-            settingsLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 16),
-            settingsLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 40),
-            settingsLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -40),
+            resultImageView.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 5),
+            resultImageView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 40),
+            resultImageView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -40),
+            resultImageView.heightAnchor.constraint(equalToConstant: 200),
+            
+            winTimeLabel.topAnchor.constraint(equalTo: resultImageView.bottomAnchor, constant: 16),
+            winTimeLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 40),
+            winTimeLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -40),
+            
         ])
     }
     
     // MARK: - Helper Methods
     
     private func addSubviews() {
-        [backgroundView, mainView, closeButton, settingsLabel].forEach {
+        [backgroundView, mainView, closeButton, winTimeLabel, resultImageView].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview($0)
         }
