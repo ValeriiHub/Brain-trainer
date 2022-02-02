@@ -16,6 +16,8 @@ class SettingsVC: UIViewController {
     //MARK: - Properties
     
     let settingsView = SettingsView()
+    let soundManager = SoundManager.shared
+    let musicManager = MusicManager.shared
     
     weak var delegate: CloseButtonDelegate?
     
@@ -32,10 +34,23 @@ class SettingsVC: UIViewController {
         
         showAnimate()
         configureButtons()
+        configureSound()
     }
     
     func configureButtons() {
         settingsView.closeButton.addTarget(self, action: #selector(closeButtonPressed), for: .touchUpInside)
+        settingsView.musicSlider.addTarget(self, action: #selector(musicSliderChanged(_:)), for: .valueChanged)
+        settingsView.soundSlider.addTarget(self, action: #selector(soundSliderChanged(_:)), for: .valueChanged)
+    }
+    
+    func configureSound() {
+        if let musicManagerVolume = UserDefaults.standard.object(forKey: K.musicManagerVolumeKey) as? Float {
+            settingsView.musicSlider.value = musicManagerVolume
+        }
+        
+        if let soundManagerVolume = UserDefaults.standard.object(forKey: K.soundManagerVolumeKey) as? Float {
+            settingsView.soundSlider.value = soundManagerVolume
+        }
     }
     
     func showAnimate() {
@@ -61,5 +76,15 @@ class SettingsVC: UIViewController {
     @objc private func closeButtonPressed() {
         removeAnimate()
         delegate?.continueTimer()
+    }
+    
+    @objc func musicSliderChanged(_ sender: UISlider) {
+        musicManager.player?.volume = sender.value
+        UserDefaults.standard.set(sender.value, forKey: K.musicManagerVolumeKey)
+    }
+    
+    @objc func soundSliderChanged(_ sender: UISlider) {
+        soundManager.volume = sender.value
+        UserDefaults.standard.set(sender.value, forKey: K.soundManagerVolumeKey)
     }
 }

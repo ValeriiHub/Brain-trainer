@@ -12,16 +12,22 @@ class MainVC: UIViewController {
     //MARK: - Properties
     
     let mainView = MainView()
+    let soundManager = SoundManager.shared
+    let musicManager = MusicManager.shared
     
     //MARK: - Life cycle
+    
+    override func loadView() {
+        super.loadView()
+        
+        view = mainView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.addSubview(mainView)
-        mainView.frame = view.bounds
-        
         configureButtons()
+        configureSound()
     }
     
     private func configureButtons() {
@@ -41,6 +47,16 @@ class MainVC: UIViewController {
         
         vc.modalPresentationStyle = .overFullScreen
         present(vc, animated: true)
+    }
+    
+    func configureSound() {
+        if let musicManagerVolume = UserDefaults.standard.object(forKey: K.musicManagerVolumeKey) as? Float {
+            musicManager.volume = musicManagerVolume
+        }
+        
+        if let soundManagerVolume = UserDefaults.standard.object(forKey: K.soundManagerVolumeKey) as? Float {
+            soundManager.volume = soundManagerVolume
+        }
     }
     
     @objc private func easyLevelButtonPressed() {

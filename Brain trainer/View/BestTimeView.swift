@@ -53,7 +53,7 @@ class BestTimeView: UIView {
     
     private let easyLeveScoreLabel: UILabel = {
         let label = UILabel()
-        label.text = "\(String(format:"%02i:%02i", BestScore.easyLevel / 60 % 60, BestScore.easyLevel % 60))"
+        label.text = K.convertTimeToText(from: BestScore.easyLevel)
         label.font = UIFont.systemFont(ofSize: 40, weight: .bold)
         label.textAlignment = .center
         label.textColor = .black
@@ -77,7 +77,7 @@ class BestTimeView: UIView {
     
     private let mediumLeveScoreLabel: UILabel = {
         let label = UILabel()
-        label.text = "\(String(format:"%02i:%02i", BestScore.mediumLevel / 60 % 60, BestScore.mediumLevel % 60))"
+        label.text = K.convertTimeToText(from: BestScore.mediumLevel)
         label.font = UIFont.systemFont(ofSize: 40, weight: .bold)
         label.textAlignment = .center
         label.textColor = .black
@@ -101,7 +101,7 @@ class BestTimeView: UIView {
     
     private let hardLeveScoreLabel: UILabel = {
         let label = UILabel()
-        label.text = "\(String(format:"%02i:%02i", BestScore.hardLevel / 60 % 60, BestScore.hardLevel % 60))"
+        label.text = K.convertTimeToText(from: BestScore.hardLevel)
         label.font = UIFont.systemFont(ofSize: 40, weight: .bold)
         label.textAlignment = .center
         label.textColor = .black

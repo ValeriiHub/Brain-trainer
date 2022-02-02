@@ -25,11 +25,14 @@ class GameVC: UIViewController {
     
     //MARK: - Life cycle
     
+    override func loadView() {
+        super.loadView()
+        
+        view = gameView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.addSubview(gameView)
-        gameView.frame = view.bounds
         
         gameView.gameCollectionView.delegate = self
         gameView.gameCollectionView.dataSource = self
@@ -37,7 +40,7 @@ class GameVC: UIViewController {
         configureButtons()
         
         cardArray = Card.getCarts(pairs: countOfCardPairs, timer: countOfTimers)
-        gameView.timerLabel.text = String(format:"%02i:%02i", seconds / 60 % 60, seconds % 60)
+        gameView.timerLabel.text = K.convertTimeToText(from: seconds)
         
         startTimer()
     }
@@ -181,7 +184,7 @@ class GameVC: UIViewController {
     @objc func timerElapsed() {
         seconds -= 1
         print(seconds)
-        gameView.timerLabel.text = String(format:"%02i:%02i", seconds / 60 % 60, seconds % 60)
+        gameView.timerLabel.text = K.convertTimeToText(from: seconds)
         
         if seconds <= 0 {
             timer?.invalidate()
@@ -218,7 +221,7 @@ extension GameVC: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardCell", for: indexPath) as! CardCVCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.CardCVCellIdentifier, for: indexPath) as! CardCVCell
         
         cell.setCard(cardArray[indexPath.item])
         

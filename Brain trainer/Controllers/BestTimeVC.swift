@@ -15,13 +15,16 @@ class BestTimeVC: UIViewController {
     
     //MARK: - Life cycle
     
+    override func loadView() {
+        super.loadView()
+        
+        view = bestTimeView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .clear
-        
-        view.addSubview(bestTimeView)
-        bestTimeView.frame = view.bounds
         
         configureButtons()
     }

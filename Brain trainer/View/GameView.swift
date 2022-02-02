@@ -49,7 +49,7 @@ class GameView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(CardCVCell.self, forCellWithReuseIdentifier: "CardCell")
+        collectionView.register(CardCVCell.self, forCellWithReuseIdentifier: K.CardCVCellIdentifier)
         collectionView.backgroundColor = .clear
         return collectionView
     }()

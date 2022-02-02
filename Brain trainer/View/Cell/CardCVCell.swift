@@ -59,7 +59,7 @@ class CardCVCell: UICollectionViewCell {
         }
     }
     
-    // MARK: - Helper Methods
+    // MARK: - Methods
     
     func setCard(_ card: Card) {
         frontImageView.image = UIImage(named: card.imageName)
@@ -96,34 +96,3 @@ class CardCVCell: UICollectionViewCell {
                        completion: nil)
     }
 }
-
-
-
-
-
-
-
-
-
-class MyView: UIView {
-    
-    private let titleLabel = UILabel()
-    private let messageLabel = UILabel()
-    
-    func render(model: Model) {
-        titleLabel.text = model.title
-        messageLabel.text = model.message
-    }
-
-}
-
-
-extension MyView {
-    
-    struct Model {
-        let title: String
-        let message: String
-    }
-}
-
-
