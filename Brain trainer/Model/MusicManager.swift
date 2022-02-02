@@ -1,35 +1,30 @@
 //
-//  SoundManager.swift
+//  MusicManager.swift
 //  Brain trainer
 //
-//  Created by Valerii Dulia on 30.01.2022.
+//  Created by Valerii Dulia on 02.02.2022.
 //
 
 import Foundation
 import AVFoundation
 
-class SoundManager {
+class MusicManager {
     
-    static var shared = SoundManager()
+    static var shared = MusicManager()
     
     var player: AVAudioPlayer?
     
     var volume: Float = 1.0
     
-    enum SoundEffect: String {
-        case flip = "click"
-        case nomatch = "nomatch"
-        case timer = "timer"
-    }
-    
     private init() {}
     
-    func playSound(_ effect: SoundEffect) {
-        guard let bundlePath = Bundle.main.path(forResource: effect.rawValue, ofType: "mp3") else { return }
+    func playSound() {
+        guard let bundlePath = Bundle.main.path(forResource: "musicTrack", ofType: "mp3") else { return }
                         
         do {
             player = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: bundlePath))
             player?.volume = volume
+            player?.numberOfLoops = -1
             player?.play()
         } catch let error {
             print(error.localizedDescription)

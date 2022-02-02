@@ -28,6 +28,7 @@ class EndLevelView: UIView {
     let winTimeLabel: UILabel = {
         let label = UILabel()
         label.text = "00:00"
+        label.textColor = .purple
         label.font = .systemFont(ofSize: 22, weight: .bold)
         label.textAlignment = .center
         return label
@@ -87,12 +88,12 @@ class EndLevelView: UIView {
             resultImageView.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 5),
             resultImageView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 40),
             resultImageView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -40),
-            resultImageView.heightAnchor.constraint(equalToConstant: 200),
+            resultImageView.heightAnchor.constraint(equalToConstant: 20),
             
-            winTimeLabel.topAnchor.constraint(equalTo: resultImageView.bottomAnchor, constant: 16),
-            winTimeLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 40),
-            winTimeLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -40),
-            
+            winTimeLabel.topAnchor.constraint(equalTo: resultImageView.bottomAnchor),
+            winTimeLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 20),
+            winTimeLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -20),
+            winTimeLabel.heightAnchor.constraint(equalToConstant: 80),
         ])
     }
     

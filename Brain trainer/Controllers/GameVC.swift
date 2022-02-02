@@ -13,8 +13,8 @@ class GameVC: UIViewController {
     
     let gameView = GameView()
     let endLevelView = EndLevelView()
-    let settingsView = SettingsView()
     let soundManager = SoundManager.shared
+    var timer: Timer?
     
     var cardArray: [Card] = []
     var cardsInRow = Level.easy.cardsCount
@@ -22,7 +22,6 @@ class GameVC: UIViewController {
     var countOfTimers = 0
     var seconds = Level.easy.time
     var firstFlippedCardIndex: IndexPath?
-    var timer: Timer?
     
     //MARK: - Life cycle
     
@@ -49,7 +48,6 @@ class GameVC: UIViewController {
         gameView.closelButton.addTarget(self, action: #selector(closelButtonPressed), for: .touchUpInside)
         gameView.pauseButton.addTarget(self, action: #selector(pauseButtonPressed), for: .touchUpInside)
         endLevelView.closeButton.addTarget(self, action: #selector(closelButtonPressed), for: .touchUpInside)
-        settingsView.closeButton.addTarget(self, action: #selector(SettingsCloselButtonPressed), for: .touchUpInside)
     }
     
     func checkForMatches(_ secondFlippedCardIndex: IndexPath) {
@@ -182,7 +180,7 @@ class GameVC: UIViewController {
     
     @objc func timerElapsed() {
         seconds -= 1
-        
+        print(seconds)
         gameView.timerLabel.text = String(format:"%02i:%02i", seconds / 60 % 60, seconds % 60)
         
         if seconds <= 0 {
@@ -192,24 +190,21 @@ class GameVC: UIViewController {
     }
     
     @objc func closelButtonPressed() {
-        dismiss(animated: true)
+        dismiss(animated: true) {
+            self.timer?.invalidate()
+            self.timer = nil
+        }
     }
     
     @objc func pauseButtonPressed() {
         timer?.invalidate()
         
-        setCustom(settingsView)
-        showAnimate(settingsView)
-    }
-    
-    @objc func SettingsCloselButtonPressed() {
-        removeAnimate(settingsView)
-        startTimer()
-    }
-    
-    deinit {
-        timer?.invalidate()
-        timer = nil
+        let vc = SettingsVC()
+        vc.delegate = self
+        self.addChild(vc)
+        vc.view.frame = self.view.frame
+        self.view.addSubview(vc.view)
+        vc.didMove(toParent: self)
     }
 }
 
@@ -263,18 +258,17 @@ extension GameVC: UICollectionViewDelegateFlowLayout {
             card.isFlipped = true
             
             if card.imageName == K.cardImageNameTimer {
-                soundManager.playSound(.explosion)
+                soundManager.playSound(.timer)
                 configure(cell, and: card)
                 
                 if seconds > 20 {
                     timer?.invalidate()
                     seconds -= 20
                     
-//                    gameView.timerLabel.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
                     gameView.timerLabel.text = K.bombDeltaTimeText
                     
                     UIView.animate(withDuration: 0.25) {
-                        self.gameView.timerLabel.transform = CGAffineTransform(scaleX: 2.5, y: 2.5)
+                        self.gameView.timerLabel.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
                     } completion: { _ in
                         UIView.animate(withDuration: 0.25) {
                             self.gameView.timerLabel.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
@@ -305,5 +299,11 @@ extension GameVC: UICollectionViewDelegateFlowLayout {
         card.isMatched = true
         cell.removeMatchedCards()
         cell.flipBack()
+    }
+}
+
+extension GameVC: CloseButtonDelegate {
+    func continueTimer() {
+        startTimer()
     }
 }
