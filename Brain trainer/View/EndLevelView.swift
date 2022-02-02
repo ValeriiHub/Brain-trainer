@@ -11,14 +11,14 @@ class EndLevelView: UIView {
     
     // MARK: - Properties
     
-    let backgroundView: UIView = {
+    private let backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
         view.alpha = 0.65
         return view
     }()
     
-    let mainView: UIView = {
+    private let mainView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.cornerRadius = 10
@@ -27,9 +27,18 @@ class EndLevelView: UIView {
     
     let winTimeLabel: UILabel = {
         let label = UILabel()
-        label.text = "00:00"
+        label.text = ""
         label.textColor = .purple
-        label.font = .systemFont(ofSize: 22, weight: .bold)
+        label.font = .systemFont(ofSize: 25, weight: .bold)
+        label.textAlignment = .center
+        return label
+    }()
+    
+    let winLabel: UILabel = {
+        let label = UILabel()
+        label.text = ""
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 50, weight: .bold)
         label.textAlignment = .center
         return label
     }()
@@ -38,19 +47,12 @@ class EndLevelView: UIView {
         let button = UIButton()
         button.setTitle("Close", for: .normal)
         button.contentMode = .center
-        button.backgroundColor = .red
+        button.setBackgroundImage(UIImage(named: "VioletButton"), for: .normal)
         button.layer.cornerRadius = 10
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        button.titleLabel?.font = .systemFont(ofSize: 25, weight: .bold)
         return button
     }()
     
-    private let resultImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "win")
-        imageView.contentMode = .scaleToFill
-        return imageView
-    }()
-
     // MARK: - Inits
     
     override init(frame: CGRect) {
@@ -85,12 +87,11 @@ class EndLevelView: UIView {
             closeButton.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -23),
             closeButton.heightAnchor.constraint(equalToConstant: 50),
             
-            resultImageView.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 5),
-            resultImageView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 40),
-            resultImageView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -40),
-            resultImageView.heightAnchor.constraint(equalToConstant: 20),
+            winLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 40),
+            winLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 20),
+            winLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -20),
             
-            winTimeLabel.topAnchor.constraint(equalTo: resultImageView.bottomAnchor),
+            winTimeLabel.topAnchor.constraint(equalTo: winLabel.bottomAnchor, constant: 15),
             winTimeLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 20),
             winTimeLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -20),
             winTimeLabel.heightAnchor.constraint(equalToConstant: 80),
@@ -100,7 +101,7 @@ class EndLevelView: UIView {
     // MARK: - Helper Methods
     
     private func addSubviews() {
-        [backgroundView, mainView, closeButton, winTimeLabel, resultImageView].forEach {
+        [backgroundView, mainView, closeButton, winTimeLabel, winLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview($0)
         }

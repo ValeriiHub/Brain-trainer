@@ -18,7 +18,7 @@ class SoundManager {
     
     enum SoundEffect: String {
         case flip = "click"
-        case nomatch = "nomatch"
+        case match = "match"
         case timer = "timer"
     }
     

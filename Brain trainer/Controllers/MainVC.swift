@@ -28,7 +28,10 @@ class MainVC: UIViewController {
         
         configureButtons()
         configureSound()
+        musicManager.playSound()
     }
+    
+    //MARK: - Methods
     
     private func configureButtons() {
         mainView.easyLevelButton.addTarget(self, action: #selector(easyLevelButtonPressed), for: .touchUpInside)
@@ -49,14 +52,9 @@ class MainVC: UIViewController {
         present(vc, animated: true)
     }
     
-    func configureSound() {
-        if let musicManagerVolume = UserDefaults.standard.object(forKey: K.musicManagerVolumeKey) as? Float {
-            musicManager.volume = musicManagerVolume
-        }
-        
-        if let soundManagerVolume = UserDefaults.standard.object(forKey: K.soundManagerVolumeKey) as? Float {
-            soundManager.volume = soundManagerVolume
-        }
+    private func configureSound() {
+        musicManager.volume = Sound.musicManager
+        soundManager.volume = Sound.soundManager
     }
     
     @objc private func easyLevelButtonPressed() {

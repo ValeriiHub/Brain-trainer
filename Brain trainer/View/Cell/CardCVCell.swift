@@ -11,14 +11,14 @@ class CardCVCell: UICollectionViewCell {
     
     //MARK: - Properties
         
-    let frontImageView: UIImageView = {
+    private let frontImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "Card1")
         imageView.contentMode = .scaleToFill
         return imageView
     }()
     
-    let backImageView: UIImageView = {
+    private let backImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "Card0")
         return imageView

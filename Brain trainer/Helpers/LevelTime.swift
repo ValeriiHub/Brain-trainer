@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum Level {
-    case easy
-    case medium
-    case hard
+enum Level: String {
+    case easy = "EASY LEVEL"
+    case medium = "MEDIUM LEVEL"
+    case hard = "HARD LEVEL"
 }
 
 extension Level {

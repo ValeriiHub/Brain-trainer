@@ -29,11 +29,13 @@ class BestTimeVC: UIViewController {
         configureButtons()
     }
     
-    func configureButtons() {
+    //MARK: - Methods
+    
+    private func configureButtons() {
         bestTimeView.closeButton.addTarget(self, action: #selector(closeButtonPressed), for: .touchUpInside)
     }
     
-    @objc func closeButtonPressed() {
+    @objc private func closeButtonPressed() {
         dismiss(animated: true)
     }
 }

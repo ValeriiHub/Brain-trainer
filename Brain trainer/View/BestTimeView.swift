@@ -44,7 +44,7 @@ class BestTimeView: UIView {
     
     private let easyLevelLabel: UILabel = {
         let label = UILabel()
-        label.text = "EASY LEVEL"
+        label.text = Level.easy.rawValue
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.textAlignment = .center
         label.textColor = .black
@@ -68,7 +68,7 @@ class BestTimeView: UIView {
     
     private let mediumLeveLabel: UILabel = {
         let label = UILabel()
-        label.text = "MEDIUN LEVEL"
+        label.text = Level.medium.rawValue
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.textAlignment = .center
         label.textColor = .black
@@ -92,7 +92,7 @@ class BestTimeView: UIView {
     
     private let hurdLeveLabel: UILabel = {
         let label = UILabel()
-        label.text = "HARD LEVEL"
+        label.text = Level.hard.rawValue
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         label.textAlignment = .center
         label.textColor = .black

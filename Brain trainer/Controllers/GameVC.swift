@@ -53,7 +53,7 @@ class GameVC: UIViewController {
         endLevelView.closeButton.addTarget(self, action: #selector(closelButtonPressed), for: .touchUpInside)
     }
     
-    func checkForMatches(_ secondFlippedCardIndex: IndexPath) {
+    private func checkForMatches(_ secondFlippedCardIndex: IndexPath) {
         
         let cardOneCell = gameView.gameCollectionView.cellForItem(at: firstFlippedCardIndex!) as? CardCVCell
         let cardTwoCell = gameView.gameCollectionView.cellForItem(at: secondFlippedCardIndex) as? CardCVCell
@@ -71,9 +71,11 @@ class GameVC: UIViewController {
             cardOneCell?.flipBack()
             cardTwoCell?.flipBack()
             
+            soundManager.playSound(.match)
+            
             checkGameEnded()
         } else {
-            soundManager.playSound(.nomatch)
+            soundManager.playSound(.flip)
             
             cardOne.isFlipped = false
             cardTwo.isFlipped = false
@@ -84,7 +86,7 @@ class GameVC: UIViewController {
         firstFlippedCardIndex = nil
     }
     
-    func checkGameEnded() {
+    private func checkGameEnded() {
         var isWon = true
         
         for card in cardArray {
@@ -97,7 +99,6 @@ class GameVC: UIViewController {
         if isWon {
             if seconds > 0 {
                 timer?.invalidate()
-                
                 
                 switch cardsInRow {
                 case Level.easy.cardsCount:
@@ -124,24 +125,25 @@ class GameVC: UIViewController {
             }
             
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.4) {
-                self.showPopUp(text: "You win!")
+                self.showPopUp(result: "You win!", time: "Left " + K.convertTimeToText(from: self.seconds))
             }
         } else {
             if seconds > 0 {
                 return
             }
             
-            showPopUp(text: "You lose")
+            showPopUp(result: "You lose", time: "Try again!")
         }
     }
     
-    func showPopUp(text: String) {
-        endLevelView.winTimeLabel.text = text
+    private func showPopUp(result: String, time: String) {
+        endLevelView.winLabel.text = result
+        endLevelView.winTimeLabel.text = time
         setCustom(endLevelView)
         showAnimate(endLevelView)
     }
     
-    func startTimer() {
+    private func startTimer() {
         timer = Timer.scheduledTimer(timeInterval: 1,
                                      target: self,
                                      selector: #selector(timerElapsed),
@@ -149,7 +151,7 @@ class GameVC: UIViewController {
                                      repeats: true)
     }
     
-    func setCustom(_ view: UIView) {
+    private func setCustom(_ view: UIView) {
         self.view.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -160,7 +162,7 @@ class GameVC: UIViewController {
         ])
     }
     
-    func showAnimate(_ view: UIView) {
+    private func showAnimate(_ view: UIView) {
         view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         view.alpha = 0.0
         UIView.animate(withDuration: 0.25) {
@@ -169,8 +171,7 @@ class GameVC: UIViewController {
         }
     }
     
-    
-    func removeAnimate(_ view: UIView) {
+    private func removeAnimate(_ view: UIView) {
         UIView.animate(withDuration: 0.25) {
             view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
             view.alpha = 0.0
@@ -181,9 +182,9 @@ class GameVC: UIViewController {
         }
     }
     
-    @objc func timerElapsed() {
+    @objc private func timerElapsed() {
         seconds -= 1
-        print(seconds)
+        
         gameView.timerLabel.text = K.convertTimeToText(from: seconds)
         
         if seconds <= 0 {
@@ -192,14 +193,14 @@ class GameVC: UIViewController {
         }
     }
     
-    @objc func closelButtonPressed() {
+    @objc private func closelButtonPressed() {
         dismiss(animated: true) {
             self.timer?.invalidate()
             self.timer = nil
         }
     }
     
-    @objc func pauseButtonPressed() {
+    @objc private func pauseButtonPressed() {
         timer?.invalidate()
         
         let vc = SettingsVC()
@@ -284,7 +285,7 @@ extension GameVC: UICollectionViewDelegateFlowLayout {
                     self.timer?.invalidate()
                     self.gameView.timerLabel.text = "00:00"
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.8) {
-                        self.showPopUp(text: "You lose")
+                        self.showPopUp(result: "You lose", time: "Try again!")
                     }
                 }
                 return
@@ -298,7 +299,7 @@ extension GameVC: UICollectionViewDelegateFlowLayout {
         }
     }
     
-    func configure(_ cell: CardCVCell, and card: Card) {
+    private func configure(_ cell: CardCVCell, and card: Card) {
         card.isMatched = true
         cell.removeMatchedCards()
         cell.flipBack()

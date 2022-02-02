@@ -15,9 +15,6 @@ struct K {
     static let bombDeltaTimeText = "-20"
     static let cardImageNameTimer = "timer"
     
-    static let musicManagerVolumeKey = "musicManagerVolume"
-    static let soundManagerVolumeKey = "soundManagerVolume"
-    
     
     static func convertTimeToText(from seconds: Int) -> String {
         let text = "\(String(format:"%02i:%02i", seconds / 60 % 60, seconds % 60))"

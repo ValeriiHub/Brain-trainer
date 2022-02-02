@@ -70,6 +70,16 @@ class MainView: UIView {
         return imageView
     }()
     
+    private let gameTitleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "BRAIN TRAINER"
+        label.textColor = .black
+        label.textAlignment = .center
+        label.numberOfLines = 2
+        label.font = UIFont(name: "PartyLetPlain", size: 60)
+        return label
+    }()
+    
     // MARK: - Inits
     
     override init(frame: CGRect) {
@@ -123,13 +133,18 @@ class MainView: UIView {
             sunImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             sunImageView.heightAnchor.constraint(equalToConstant: 100),
             sunImageView.widthAnchor.constraint(equalToConstant: 100),
+            
+            gameTitleLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 95),
+            gameTitleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            gameTitleLabel.heightAnchor.constraint(equalToConstant: 200),
+            gameTitleLabel.widthAnchor.constraint(equalToConstant: 300),
         ])
     }
     
     // MARK: - Helper Methods
     
     private func addSubviews() {
-        [backgroundImageView, highScoreButton, mediumLevelButton, easyLevelButton, hurdLevelButton, settingButton, sunImageView].forEach {
+        [backgroundImageView, highScoreButton, mediumLevelButton, easyLevelButton, hurdLevelButton, settingButton, sunImageView, gameTitleLabel].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview($0)
         }

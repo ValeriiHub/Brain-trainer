@@ -11,21 +11,21 @@ class SettingsView: UIView {
     
     // MARK: - Properties
     
-    let backgroundView: UIView = {
+    private let backgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
         view.alpha = 0.65
         return view
     }()
     
-    let mainView: UIView = {
+    private let mainView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.layer.cornerRadius = 10
         return view
     }()
     
-    let settingsLabel: UILabel = {
+    private let settingsLabel: UILabel = {
         let label = UILabel()
         label.text = "Settings"
         label.font = .systemFont(ofSize: 22, weight: .bold)
@@ -43,7 +43,7 @@ class SettingsView: UIView {
         return button
     }()
     
-    let musicLabel: UILabel = {
+    private let musicLabel: UILabel = {
         let label = UILabel()
         label.text = "Music"
         label.font = .systemFont(ofSize: 22, weight: .bold)
@@ -61,13 +61,13 @@ class SettingsView: UIView {
         return slider
     }()
     
-    let divisionLineView: UIView = {
+    private let divisionLineView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
         return view
     }()
     
-    let soundLabel: UILabel = {
+    private let soundLabel: UILabel = {
         let label = UILabel()
         label.text = "Sound"
         label.font = .systemFont(ofSize: 22, weight: .bold)

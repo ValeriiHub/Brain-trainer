@@ -30,7 +30,7 @@ extension Card {
         
         for _ in 0..<timer {
             let card = Card()
-            card.imageName = "timer"
+            card.imageName = K.cardImageNameTimer
             
             generatedCardsArrey.append(card)
         }

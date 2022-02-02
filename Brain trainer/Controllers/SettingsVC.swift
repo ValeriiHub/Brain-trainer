@@ -37,23 +37,20 @@ class SettingsVC: UIViewController {
         configureSound()
     }
     
-    func configureButtons() {
+    //MARK: - Methods
+    
+    private func configureButtons() {
         settingsView.closeButton.addTarget(self, action: #selector(closeButtonPressed), for: .touchUpInside)
         settingsView.musicSlider.addTarget(self, action: #selector(musicSliderChanged(_:)), for: .valueChanged)
         settingsView.soundSlider.addTarget(self, action: #selector(soundSliderChanged(_:)), for: .valueChanged)
     }
     
-    func configureSound() {
-        if let musicManagerVolume = UserDefaults.standard.object(forKey: K.musicManagerVolumeKey) as? Float {
-            settingsView.musicSlider.value = musicManagerVolume
-        }
-        
-        if let soundManagerVolume = UserDefaults.standard.object(forKey: K.soundManagerVolumeKey) as? Float {
-            settingsView.soundSlider.value = soundManagerVolume
-        }
+    private func configureSound() {
+        settingsView.musicSlider.value = Sound.musicManager
+        settingsView.soundSlider.value = Sound.soundManager
     }
     
-    func showAnimate() {
+    private func showAnimate() {
         view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         view.alpha = 0.0
         UIView.animate(withDuration: 0.25) {
@@ -62,7 +59,7 @@ class SettingsVC: UIViewController {
         }
     }
     
-    func removeAnimate() {
+    private func removeAnimate() {
         UIView.animate(withDuration: 0.25) {
             self.view.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
             self.view.alpha = 0.0
@@ -78,13 +75,13 @@ class SettingsVC: UIViewController {
         delegate?.continueTimer()
     }
     
-    @objc func musicSliderChanged(_ sender: UISlider) {
+    @objc private func musicSliderChanged(_ sender: UISlider) {
         musicManager.player?.volume = sender.value
-        UserDefaults.standard.set(sender.value, forKey: K.musicManagerVolumeKey)
+        Sound.musicManager = sender.value
     }
     
-    @objc func soundSliderChanged(_ sender: UISlider) {
+    @objc private func soundSliderChanged(_ sender: UISlider) {
         soundManager.volume = sender.value
-        UserDefaults.standard.set(sender.value, forKey: K.soundManagerVolumeKey)
+        Sound.soundManager = sender.value
     }
 }
