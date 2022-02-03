@@ -17,7 +17,7 @@ extension Level {
     var time: Int {
         switch self {
         case .easy:
-            return 10
+            return 60
         case .medium:
             return 90
         case .hard:
