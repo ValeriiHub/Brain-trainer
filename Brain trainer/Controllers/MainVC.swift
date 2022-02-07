@@ -78,7 +78,7 @@ class MainVC: UIViewController {
     @objc private func settingButtonPressed() {
         let vc = SettingsVC()
         self.addChild(vc)
-        vc.view.frame = self.view.frame
+        vc.view.frame = self.view.bounds
         self.view.addSubview(vc.view)
         vc.didMove(toParent: self)
     }

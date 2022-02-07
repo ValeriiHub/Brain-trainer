@@ -60,6 +60,8 @@ class GameView: UIView {
         super.init(frame: frame)
         
         addSubviews()
+        setupLayout()
+        
         self.backgroundColor = .white
     }
     
@@ -69,8 +71,10 @@ class GameView: UIView {
     
     // MARK: - Layout
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    private func setupLayout() {
+        [backgroundImageView, closelButton, pauseButton, timerLabel, gameCollectionView].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: self.topAnchor),
@@ -89,22 +93,21 @@ class GameView: UIView {
             pauseButton.heightAnchor.constraint(equalToConstant: 80),
             
             timerLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant:40),
-            timerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 80),
-            timerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -80),
+            timerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 60),
+            timerLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -60),
             timerLabel.heightAnchor.constraint(equalToConstant: 80),
             
             gameCollectionView.topAnchor.constraint(equalTo: timerLabel.bottomAnchor, constant:30),
             gameCollectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
             gameCollectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15),
-            gameCollectionView.heightAnchor.constraint(equalToConstant: 350),
+            gameCollectionView.heightAnchor.constraint(equalToConstant: 365),
         ])
     }
     
     // MARK: - Helper Methods
     
     private func addSubviews() {
-        [backgroundImageView, closelButton, pauseButton, timerLabel, gameCollectionView].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
+        [backgroundImageView, timerLabel, gameCollectionView, closelButton, pauseButton].forEach {
             self.addSubview($0)
         }
     }

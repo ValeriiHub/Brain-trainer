@@ -86,6 +86,8 @@ class MainView: UIView {
         super.init(frame: frame)
         
         addSubviews()
+        setupLayout()
+        
         self.backgroundColor = .white
     }
     
@@ -95,8 +97,10 @@ class MainView: UIView {
     
     // MARK: - Layout
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    private func setupLayout() {
+        [backgroundImageView, highScoreButton, mediumLevelButton, easyLevelButton, hurdLevelButton, settingButton, sunImageView, gameTitleLabel].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         NSLayoutConstraint.activate([
             backgroundImageView.topAnchor.constraint(equalTo: self.topAnchor),
@@ -120,12 +124,12 @@ class MainView: UIView {
             mediumLevelButton.widthAnchor.constraint(equalToConstant: 100),
             
             easyLevelButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -70),
-            easyLevelButton.trailingAnchor.constraint(equalTo: mediumLevelButton.leadingAnchor, constant: 5),
+            easyLevelButton.trailingAnchor.constraint(equalTo: mediumLevelButton.leadingAnchor, constant: 15),
             easyLevelButton.heightAnchor.constraint(equalToConstant: 100),
             easyLevelButton.widthAnchor.constraint(equalToConstant: 100),
             
             hurdLevelButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -120),
-            hurdLevelButton.leadingAnchor.constraint(equalTo: highScoreButton.trailingAnchor, constant: 1),
+            hurdLevelButton.leadingAnchor.constraint(equalTo: highScoreButton.trailingAnchor),
             hurdLevelButton.heightAnchor.constraint(equalToConstant: 100),
             hurdLevelButton.widthAnchor.constraint(equalToConstant: 100),
             
@@ -145,7 +149,6 @@ class MainView: UIView {
     
     private func addSubviews() {
         [backgroundImageView, highScoreButton, mediumLevelButton, easyLevelButton, hurdLevelButton, settingButton, sunImageView, gameTitleLabel].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview($0)
         }
     }

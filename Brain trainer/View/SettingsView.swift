@@ -91,6 +91,7 @@ class SettingsView: UIView {
         super.init(frame: frame)
         
         addSubviews()
+        setupLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -99,8 +100,10 @@ class SettingsView: UIView {
     
     // MARK: - Layout
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    private func setupLayout() {
+        [backgroundView, mainView, closeButton, settingsLabel, musicLabel, musicSlider, divisionLineView, soundLabel, soundSlider].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         NSLayoutConstraint.activate([
             backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
@@ -113,33 +116,33 @@ class SettingsView: UIView {
             mainView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 18),
             mainView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -18),
             mainView.heightAnchor.constraint(equalToConstant: 380),
-        
+            
             closeButton.bottomAnchor.constraint(equalTo: mainView.bottomAnchor, constant: -23),
             closeButton.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 23),
             closeButton.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -23),
             closeButton.heightAnchor.constraint(equalToConstant: 50),
-        
+            
             settingsLabel.topAnchor.constraint(equalTo: mainView.topAnchor, constant: 16),
             settingsLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 40),
             settingsLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -40),
-
+            
             musicLabel.topAnchor.constraint(equalTo: settingsLabel.bottomAnchor, constant: 20),
             musicLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -25),
             musicLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 25),
-
+            
             musicSlider.topAnchor.constraint(equalTo: musicLabel.bottomAnchor, constant: 20),
             musicSlider.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -25),
             musicSlider.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 25),
-
+            
             divisionLineView.topAnchor.constraint(equalTo: musicSlider.bottomAnchor, constant: 30),
             divisionLineView.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -25),
             divisionLineView.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 25),
             divisionLineView.heightAnchor.constraint(equalToConstant: 1),
-
+            
             soundLabel.topAnchor.constraint(equalTo: divisionLineView.bottomAnchor, constant: 20),
             soundLabel.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -25),
             soundLabel.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 25),
-
+            
             soundSlider.topAnchor.constraint(equalTo: soundLabel.bottomAnchor, constant: 20),
             soundSlider.trailingAnchor.constraint(equalTo: mainView.trailingAnchor, constant: -25),
             soundSlider.leadingAnchor.constraint(equalTo: mainView.leadingAnchor, constant: 25),
@@ -150,7 +153,6 @@ class SettingsView: UIView {
     
     private func addSubviews() {
         [backgroundView, mainView, closeButton, settingsLabel, musicLabel, musicSlider, divisionLineView, soundLabel, soundSlider].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview($0)
         }
     }

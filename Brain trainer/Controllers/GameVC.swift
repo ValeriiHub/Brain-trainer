@@ -206,7 +206,7 @@ class GameVC: UIViewController {
         let vc = SettingsVC()
         vc.delegate = self
         self.addChild(vc)
-        vc.view.frame = self.view.frame
+        vc.view.frame = self.view.bounds
         self.view.addSubview(vc.view)
         vc.didMove(toParent: self)
     }
@@ -224,7 +224,7 @@ extension GameVC: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.CardCVCellIdentifier, for: indexPath) as! CardCVCell
         
-        cell.setCard(cardArray[indexPath.item])
+        cell.setCard(cardArray[indexPath.item].imageName)
         
         return cell
     }

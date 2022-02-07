@@ -59,6 +59,7 @@ class EndLevelView: UIView {
         super.init(frame: frame)
         
         addSubviews()
+        setupLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -67,8 +68,10 @@ class EndLevelView: UIView {
     
     // MARK: - Layout
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    private func setupLayout() {
+        [backgroundView, mainView, closeButton, winTimeLabel, winLabel].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         NSLayoutConstraint.activate([
             backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
@@ -102,7 +105,6 @@ class EndLevelView: UIView {
     
     private func addSubviews() {
         [backgroundView, mainView, closeButton, winTimeLabel, winLabel].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview($0)
         }
     }

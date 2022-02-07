@@ -10,7 +10,7 @@ import UIKit
 class CardCVCell: UICollectionViewCell {
     
     //MARK: - Properties
-        
+    
     private let frontImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "Card1")
@@ -61,8 +61,8 @@ class CardCVCell: UICollectionViewCell {
     
     // MARK: - Methods
     
-    func setCard(_ card: Card) {
-        frontImageView.image = UIImage(named: card.imageName)
+    func setCard(_ imageName: String) {
+        frontImageView.image = UIImage(named: imageName)
         backImageView.alpha = 1
         frontImageView.alpha = 1
         backImageView.isHidden = false

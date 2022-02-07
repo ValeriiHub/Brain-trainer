@@ -1,8 +1,8 @@
 # Brain Trainer
  
   
-  #### ✅Архитектура MVC.
-  #### ✅Проект полностью написан в коде, Storyboard удален.
+  #### ✅MVC architecture.
+  #### ✅Project is fully implemented programmatically, Storyboard was removed.
 
 
 ![Screenshot](BrainTrainer.png)

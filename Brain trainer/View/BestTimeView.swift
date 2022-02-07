@@ -116,6 +116,8 @@ class BestTimeView: UIView {
         super.init(frame: frame)
         
         addSubviews()
+        setupLayout()
+        
         self.backgroundColor = .clear
     }
     
@@ -125,8 +127,10 @@ class BestTimeView: UIView {
     
     // MARK: - Layout
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    private func setupLayout() {
+        [backgroundView, bestTimeLabel, closeButton, easyLevelImageView, easyLevelLabel, easyLeveScoreLabel, mediumLeveImageView, mediumLeveLabel, mediumLeveScoreLabel, hurdLeveImageView, hurdLeveLabel, hardLeveScoreLabel].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         NSLayoutConstraint.activate([
             backgroundView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.8),
@@ -143,7 +147,7 @@ class BestTimeView: UIView {
             closeButton.heightAnchor.constraint(equalToConstant: 30),
             closeButton.widthAnchor.constraint(equalToConstant: 30),
             
-            easyLevelImageView.topAnchor.constraint(equalTo: bestTimeLabel.bottomAnchor, constant: 50),
+            easyLevelImageView.topAnchor.constraint(equalTo: bestTimeLabel.bottomAnchor, constant: 30),
             easyLevelImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             easyLevelImageView.widthAnchor.constraint(equalToConstant: 220),
             easyLevelImageView.heightAnchor.constraint(equalToConstant: 100),
@@ -158,7 +162,7 @@ class BestTimeView: UIView {
             easyLeveScoreLabel.trailingAnchor.constraint(equalTo: easyLevelImageView.trailingAnchor),
             easyLeveScoreLabel.heightAnchor.constraint(equalToConstant: 30),
             
-            mediumLeveImageView.topAnchor.constraint(equalTo: easyLevelImageView.bottomAnchor, constant: 50),
+            mediumLeveImageView.topAnchor.constraint(equalTo: easyLevelImageView.bottomAnchor, constant: 35),
             mediumLeveImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             mediumLeveImageView.widthAnchor.constraint(equalToConstant: 220),
             mediumLeveImageView.heightAnchor.constraint(equalToConstant: 100),
@@ -173,7 +177,7 @@ class BestTimeView: UIView {
             mediumLeveScoreLabel.trailingAnchor.constraint(equalTo: mediumLeveImageView.trailingAnchor),
             mediumLeveScoreLabel.heightAnchor.constraint(equalToConstant: 30),
             
-            hurdLeveImageView.topAnchor.constraint(equalTo: mediumLeveImageView.bottomAnchor, constant: 50),
+            hurdLeveImageView.topAnchor.constraint(equalTo: mediumLeveImageView.bottomAnchor, constant: 35),
             hurdLeveImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             hurdLeveImageView.widthAnchor.constraint(equalToConstant: 220),
             hurdLeveImageView.heightAnchor.constraint(equalToConstant: 100),
@@ -194,7 +198,6 @@ class BestTimeView: UIView {
     
     private func addSubviews() {
         [backgroundView, bestTimeLabel, closeButton, easyLevelImageView, easyLevelLabel, easyLeveScoreLabel, mediumLeveImageView, mediumLeveLabel, mediumLeveScoreLabel, hurdLeveImageView, hurdLeveLabel, hardLeveScoreLabel].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview($0)
         }
     }
